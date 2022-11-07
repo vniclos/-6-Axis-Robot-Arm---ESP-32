@@ -47,11 +47,33 @@ IPAddress g_WifiIpGateway(192, 168, 1, 1);
 IPAddress g_WifiIpMask(255, 255, 255, 0);
 ```
 
-Asignation buttons (Chanels mux) to servos and functions
+### Asignation buttons (Chanels mux) to servos and functions
 ```c
 const int g_IdMuxChanelServoBtnFnc01 = 0; // Function go robot to initial position
 const int g_IdMuxChanelServoBtnFnc02 = 8; // Funtion robot do automatic secuence of movements
                                                                              
 const int g_IdMuxChanelServoBtnLeft[g_ServoCount] = {3, 5, 1, 6, 10, 4};     //chanels for move left sevos 0-5
 const int g_IdMuxChanelServoBtnRight[g_ServoCount] = {11, 13, 9, 14, 2, 12}; //chanels for move right sevos 0-5
+```
+
+### Servos initial configuration 
+```c
+// Arrays for config servos 0 to 5 
+const String g_ServoCfgModel[6] = {"MG996R", "MG996R", "MG996R", "DS3225MG", "DS3225MG", "MG996R"};
+const int g_ServoCfgAttachMoveMin[6] = {600, 1200, 700, 950, 1120, 600};     // minimun millis movement 
+const int g_ServoCfgAttachMoveIni[6] = {800, 1500, 1180, 1150, 1400, 1270};  // Intial position millis movement 
+const int g_ServoCfgAttachMoveMax[6] = {1160, 1800, 2000, 1560, 1550, 1472}; // minimun millis movement
+
+// secuence Movement for get cube, (Starting from inital position)
+int g_moves_01[7][2] =   {{0, 600}, {3, 1520},  {2, 1798}, {4, 1363}, {0, 1035}, {4, 1500}, {3, 1171}};
+// secuence Movement for set  cube in position 0, (Starting from pick position)
+int g_moves_02_0[8][2] = {{5, 1450}, {2, 1048}, {3, 1410}, {4, 1130}, {1, 1639}, {0, 663},  {2, 1000}, {4, 1270}}; 
+// secuence Movement for set  cube in position 1, (Starting from pick position)
+int g_moves_02_1[8][2] = {{5, 1295}, {2, 1464}, {3, 1280}, {4, 1189}, {1, 1639}, {0, 663}, {2, 1000}, {4, 1270}}; 
+// secuence Movement for set  cube in position 2, (Starting from pick position)
+int g_moves_02_2[8][2] = {{5, 1103}, {2, 1066}, {3, 1377}, {4, 1123}, {1, 1374}, {0, 663}, {2, 1000}, {4, 1270}}; 
+// secuence Movement for set  cube in position 3, (Starting from pick position)
+int g_moves_02_3[8][2] = {{5, 1149}, {2, 1320}, {3, 1551}, {4, 1285}, {1, 1382}, {0, 663}, {2, 1200}, {4, 1270}};
+// secuence Movement for set  cube in position 4, (Starting from pick position)
+int g_moves_02_4[8][2] = {{5, 1377}, {2, 1510}, {3, 1347}, {4, 1225}, {1, 1255}, {0, 663}, {2, 1200}, {4, 1270}};
 ```
