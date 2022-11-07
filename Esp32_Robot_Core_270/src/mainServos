@@ -1,0 +1,131 @@
+#ifndef MAINSERVOS_H
+#define MAINSERVOS_H
+#include "mainDefines.h"
+#include "mainBlinCk.h"
+void fncServosMoveToIni()
+{
+
+    fncBlinckOn();
+    for (int i = 0; i < g_ServoCount; i++)
+    {
+
+        // g_Servo[i].MoveToIni();
+        int iPosGoto = g_Servo[i].getServo270().getAttachMovePosIni();
+        g_Servo[i].MoveToSlowly(iPosGoto, 5);
+    }
+    fncBlinckOff();
+}
+
+//---------------------------------------------------------
+
+String fnc01_Servos()
+{
+
+#ifdef DEBUG
+    Serial.println("fnc01_Servos");
+#endif
+    fncServosMoveToIni();
+    return "I'm traying  to Move to initial position";
+}
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+String fnc02_Servos()
+{
+
+    g_fnc_IsRuning = 1;
+    fncBlinckOn();
+#ifdef DEBUG
+    Serial.println("fnc02_Servos");
+#endif
+    //...................................
+    // Move to Ini
+    for (int i = 0; i < g_ServoCount; i++)
+    {
+
+        int iPosGoto = g_Servo[i].getServo270().getAttachMovePosIni();
+        g_Servo[i].MoveToSlowly(iPosGoto, 5);
+
+
+    }
+    //...................................
+    // move to pick object
+    // [id servo, iPosMillis]
+
+    
+    int iServo = 0;
+    int iPosGoto = 0;
+    for (int i = 0; i < 7; i++)
+    {
+        iServo = g_moves_01[i][0];
+        iPosGoto = g_moves_01[i][1];
+        g_Servo[iServo].MoveToSlowly(iPosGoto, 5);
+    }
+
+    //...................................
+    // move push on position: 1
+    // [id servo, iPosMillis]
+    // 5 1425,{5, 1460}
+    // {4, 1120},
+    // 3 {3, 1400}
+   
+
+    if (g_fn02_CounterAct >= g_fn02_CounterMax)
+    {
+        g_fn02_CounterAct = -1;
+    }
+  
+    g_fn02_CounterAct++;
+      Serial.print("g_fn02_CounterAct = ");
+    Serial.println(g_fn02_CounterAct);
+    for (int i = 0; i < 8; i++)
+    {
+        switch (g_fn02_CounterAct)
+        {
+        case 0:
+            iServo = g_moves_02_0[i][0];
+            iPosGoto = g_moves_02_0[i][1];
+            break;
+        case 1:
+            iServo = g_moves_02_1[i][0];
+            iPosGoto = g_moves_02_1[i][1];
+            break;
+        case 2:
+            iServo = g_moves_02_2[i][0];
+            iPosGoto = g_moves_02_2[i][1];
+            break;
+        case 3:
+            iServo = g_moves_02_3[i][0];
+            iPosGoto = g_moves_02_3[i][1];
+            break;
+        case 4:
+            iServo = g_moves_02_4[i][0];
+            iPosGoto = g_moves_02_4[i][1];
+            break;
+
+        default:
+            iServo = g_moves_02_0[i][0];
+            iPosGoto = g_moves_02_0[i][1];
+
+            break;
+        }
+
+        g_Servo[iServo].MoveToSlowly(iPosGoto, 5);
+    }
+
+    /// return to initial position
+
+    for (int i = g_ServoCount; i > 0; i--)
+    {
+
+        iPosGoto = g_Servo[i].getServo270().getAttachMovePosIni();
+        g_Servo[i].MoveToSlowly(iPosGoto, 10);
+    }
+    fncBlinckOff();
+    return "Funcion: Tomar o dejar cubito, recuerda dejarmelo en el cuadradito negro";
+    g_fnc_IsRuning = 0;
+}
+//---------------------------------------------------------------
+
+#endif
