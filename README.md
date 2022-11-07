@@ -65,6 +65,7 @@ const int g_ServoCfgAttachMoveIni[6] = {800, 1500, 1180, 1150, 1400, 1270};  // 
 const int g_ServoCfgAttachMoveMax[6] = {1160, 1800, 2000, 1560, 1550, 1472}; // minimun millis movement
 
 // secuence Movement for get cube, (Starting from inital position)
+// {array servo index, position in microsecconds)
 int g_moves_01[7][2] =   {{0, 600}, {3, 1520},  {2, 1798}, {4, 1363}, {0, 1035}, {4, 1500}, {3, 1171}};
 // secuence Movement for set  cube in position 0, (Starting from pick position)
 int g_moves_02_0[8][2] = {{5, 1450}, {2, 1048}, {3, 1410}, {4, 1130}, {1, 1639}, {0, 663},  {2, 1000}, {4, 1270}}; 
